@@ -1,4 +1,4 @@
-package hyeontaek;
+package hyeontaek.twoSum;
 
 import java.util.Arrays;
 
