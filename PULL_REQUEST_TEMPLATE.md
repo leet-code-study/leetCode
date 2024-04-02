@@ -1,7 +1,7 @@
 <!-- PR 제목은 ex) [number]-title  -->
 <!-- 이름-몇번째(푼 문제 개수) ex) 홍길동-13 -->
 
-# ex) [#1] Two Sum
+# ex) [1] Two Sum
 
 ## ex) 문제 설명 
 
