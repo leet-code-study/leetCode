@@ -1,12 +1,23 @@
-package hyeontaek.twoSum;
+package hyeontaek;
 
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
-public class TwoSum_2 {
+public class TwoSum {
 
   public int[] twoSum(int[] nums, int target) {
+    for (int i = 0; i < nums.length; i++) {
+      for (int j = i + 1; j < nums.length; j++) {
+        if (nums[i] + nums[j] == target) {
+          return new int[]{i, j};
+        }
+      }
+    }
+    return new int[] {};
+  }
+
+  public int[] twoSum2(int[] nums, int target) {
     Map<Integer, Integer> map = new HashMap<>();
     for (int i = 0; i < nums.length; i++) {
       int complement = target - nums[i];
@@ -19,13 +30,16 @@ public class TwoSum_2 {
   }
 
   public static void main(String[] args) {
-    TwoSum_2 solution = new TwoSum_2();
+    TwoSum solution = new TwoSum();
     int[] nums = {3,3};
     int target = 6;
     System.out.println(Arrays.toString(solution.twoSum(nums, target)));
+    System.out.println(Arrays.toString(solution.twoSum2(nums, target)));
 
     int[] nums2 = {2,7,11,15};
     int target2 = 9;
     System.out.println(Arrays.toString(solution.twoSum(nums2, target2)));
+    System.out.println(Arrays.toString(solution.twoSum(nums2, target2)));
+
   }
 }
