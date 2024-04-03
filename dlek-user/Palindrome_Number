@@ -1,3 +1,4 @@
+
 class Solution {
     public boolean isPalindrome(int x) {
     // 음수는 팰린드롬이 될 수 없으므로 false를 반환
