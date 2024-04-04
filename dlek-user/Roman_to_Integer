@@ -22,7 +22,7 @@ class Solution {
         int prevValue = 0; // 이전 값 저장 변수 추가
         for (int i = s.length() - 1; i >= 0; i--) {
             int currentValue = map.get(s.charAt(i));
-            // 이전 값이 현재 값보다 작으면 뺄셈
+            // 현재 값이 이전 값보다 작으면 뺄셈
             result += (prevValue > currentValue) ? -currentValue : currentValue;
             // 이전 값 업데이트
             prevValue = currentValue;
