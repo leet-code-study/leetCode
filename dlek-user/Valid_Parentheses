@@ -1,0 +1,49 @@
+class Solution {
+    public boolean isValid(String s) {
+        Stack<Character> stack = new Stack<>();
+        
+        for (char c : s.toCharArray()) {
+            if (c == '(' || c == '{' || c == '[') {
+                stack.push(c); // 여는 괄호를 스택에 푸시합니다.
+            } else {
+                if (stack.isEmpty()) {
+                    return false; // 스택이 비어있으면 대응하는 여는 괄호가 없습니다.
+                }
+                
+                char top = stack.pop(); // 스택의 맨 위 문자를 팝합니다.
+                
+                // 현재 닫는 괄호가 대응하는 여는 괄호와 일치하는지 확인합니다.
+                if ((c == ')' && top != '(') ||
+                    (c == '}' && top != '{') ||
+                    (c == ']' && top != '[')) {
+                    return false;
+                }
+            }
+        }
+        
+        // 스택이 비어있지 않으면 대응되지 않는 여는 괄호가 있습니다.
+        return stack.isEmpty();
+    }
+}
+
+
+// class Solution {
+//     public boolean isValid(String s) {
+//         char [] b = new char[s.length()];
+//         int x=0;
+//         for(char ch: s.toCharArray()){
+//             if(ch=='{'||ch=='('||ch=='['){
+//                 b[x]=ch;
+//                 x++;
+//                 continue;
+//             }
+//             if(x>0 && (b[x-1]==ch-2 || b[x-1]==ch-1)){
+//                 x--;
+//             }
+//             else{
+//                 return false;
+//             }
+//         }
+//         return x==0;
+//     }
+// }
