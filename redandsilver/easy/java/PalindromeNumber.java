@@ -1,4 +1,4 @@
-package redandsilver.easy;
+package redandsilver.easy.java;
 
 class PalindromeNumber {
   public boolean isPalindrome(int x) {

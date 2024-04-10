@@ -1,4 +1,4 @@
-package redandsilver.easy;
+package redandsilver.easy.java;
 
 import java.util.Arrays;
 
