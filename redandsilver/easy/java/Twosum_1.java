@@ -1,4 +1,4 @@
-package redandsilver.easy;
+package redandsilver.easy.java;
 
 class Twosum_1 {
   public int[] twoSum(int[] nums, int target) {
