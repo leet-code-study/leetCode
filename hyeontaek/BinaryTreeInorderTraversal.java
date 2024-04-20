@@ -50,4 +50,5 @@ public class BinaryTreeInorderTraversal {
     System.out.println(solution.inorderTraversal(root));
     System.out.println(root);
   }
+
 }
