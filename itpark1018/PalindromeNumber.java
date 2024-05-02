@@ -14,7 +14,6 @@ public class PalindromeNumber {
     while (!stack.isEmpty()) {
       stringBuilder.append(stack.pop());
     }
-
     return stringBuilder.toString().equals(xString);
   }
 }
