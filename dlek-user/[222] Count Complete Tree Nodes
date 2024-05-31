@@ -35,18 +35,4 @@ class Solution {
             return 1 + countNodes(root.left) + countNodes(root.right);
         }
     }
-
-    public static void main(String[] args) {
-        // 테스트 트리 생성
-        TreeNode root = new TreeNode(1);
-        root.left = new TreeNode(2);
-        root.right = new TreeNode(3);
-        root.left.left = new TreeNode(4);
-        root.left.right = new TreeNode(5);
-        root.right.left = new TreeNode(6);
-
-        // 노드 개수 계산 및 출력
-        Solution sol = new Solution();
-        System.out.println(sol.countNodes(root)); // 출력: 6
-    }
 }
