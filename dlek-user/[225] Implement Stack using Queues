@@ -1,0 +1,39 @@
+class MyStack {
+
+    private Queue<Integer> queue1;
+    private Queue<Integer> queue2;
+
+    public MyStack() {
+        queue1 = new LinkedList<>();
+        queue2 = new LinkedList<>();
+    }
+
+    // 요소를 스택에 추가
+    public void push(int x) {
+        // queue2에 새로운 요소를 추가
+        queue2.offer(x);
+        // queue1의 모든 요소를 queue2로 옮김
+        while (!queue1.isEmpty()) {
+            queue2.offer(queue1.poll());
+        }
+        // queue1과 queue2를 교환
+        Queue<Integer> temp = queue1;
+        queue1 = queue2;
+        queue2 = temp;
+    }
+
+    // 스택의 최상위 요소 제거 및 반환
+    public int pop() {
+        return queue1.poll();
+    }
+
+    // 스택의 최상위 요소 반환
+    public int top() {
+        return queue1.peek();
+    }
+
+    // 스택이 비어 있는지 확인
+    public boolean empty() {
+        return queue1.isEmpty();
+    }
+}
