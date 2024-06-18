@@ -1,21 +1,20 @@
 package hyeontaek;
 
 public class RangeSumQueryImmutable {
+    static class NumArray {
+        private final int[] nums;
 
-}
-
-class NumArray {
-    private final int[] nums;
-
-    public NumArray(int[] nums) {
-        this.nums = nums;
-    }
-
-    public int sumRange(int left, int right) {
-        int sum = 0;
-        for (int i = left; i <= right; i++) {
-            sum += nums[i];
+        public NumArray(int[] nums) {
+            this.nums = nums;
         }
-        return sum;
+
+        public int sumRange(int left, int right) {
+            int sum = 0;
+            for (int i = left; i <= right; i++) {
+                sum += nums[i];
+            }
+            return sum;
+        }
     }
 }
+
