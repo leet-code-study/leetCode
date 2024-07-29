@@ -1,0 +1,37 @@
+class Solution {
+    public String[] findWords(String[] words) {
+        String row1 = "qwertyuiop";
+        String row2 = "asdfghjkl";
+        String row3 = "zxcvbnm";
+
+        Map<Character, Integer> charToRowMap = new HashMap<>();
+        for (char c : row1.toCharArray()) {
+            charToRowMap.put(c, 1);
+        }
+        for (char c : row2.toCharArray()) {
+            charToRowMap.put(c, 2);
+        }
+        for (char c : row3.toCharArray()) {
+            charToRowMap.put(c, 3);
+        }
+
+        List<String> result = new ArrayList<>();
+
+        for (String word : words) {
+            if (word.isEmpty()) continue;
+            int rowIndex = charToRowMap.get(Character.toLowerCase(word.charAt(0)));
+            boolean isValid = true;
+            for (char c : word.toCharArray()) {
+                if (charToRowMap.get(Character.toLowerCase(c)) != rowIndex) {
+                    isValid = false;
+                    break;
+                }
+            }
+            if (isValid) {
+                result.add(word);
+            }
+        }
+
+        return result.toArray(new String[0]);
+    }
+}
