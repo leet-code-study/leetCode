@@ -1,0 +1,21 @@
+class Solution {
+    public int findLHS(int[] nums) {
+        // Step 1: Count frequencies of each number
+        Map<Integer, Integer> frequencyMap = new HashMap<>();
+        for (int num : nums) {
+            frequencyMap.put(num, frequencyMap.getOrDefault(num, 0) + 1);
+        }
+
+        // Step 2: Find the longest harmonious subsequence
+        int maxLength = 0;
+        for (int num : frequencyMap.keySet()) {
+            if (frequencyMap.containsKey(num + 1)) {
+                // Calculate length of the harmonious subsequence
+                int length = frequencyMap.get(num) + frequencyMap.get(num + 1);
+                maxLength = Math.max(maxLength, length);
+            }
+        }
+
+        return maxLength;
+    }
+}
