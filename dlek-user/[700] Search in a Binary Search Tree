@@ -1,0 +1,11 @@
+class Solution(object):
+    def searchBST(self, root, val):
+        current = root
+        while current is not None:
+            if current.val == val:
+                return current
+            elif val < current.val:
+                current = current.left
+            else:
+                current = current.right
+        return None
