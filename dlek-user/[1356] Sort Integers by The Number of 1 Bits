@@ -1,0 +1,18 @@
+import java.util.Arrays;
+
+class Solution {
+    public int[] sortByBits(int[] arr) {
+        Integer[] arrInteger = Arrays.stream(arr).boxed().toArray(Integer[]::new);
+
+        Arrays.sort(arrInteger, (a, b) -> {
+            int countA = Integer.bitCount(a);
+            int countB = Integer.bitCount(b);
+            if (countA == countB) {
+                return Integer.compare(a, b);
+            }
+            return Integer.compare(countA, countB);
+        });
+
+        return Arrays.stream(arrInteger).mapToInt(Integer::intValue).toArray();
+    }
+}
