@@ -1,0 +1,30 @@
+class Solution {
+    public int countLargestGroup(int n) {
+        HashMap<Integer, Integer> groupCount = new HashMap<>();
+        int maxGroupSize = 0;
+
+        for (int i = 1; i <= n; i++) {
+            int digitSum = getDigitSum(i);
+            groupCount.put(digitSum, groupCount.getOrDefault(digitSum, 0) + 1);
+            maxGroupSize = Math.max(maxGroupSize, groupCount.get(digitSum));
+        }
+
+        int largestGroupCount = 0;
+        for (int size : groupCount.values()) {
+            if (size == maxGroupSize) {
+                largestGroupCount++;
+            }
+        }
+
+        return largestGroupCount;
+    }
+
+    private int getDigitSum(int num) {
+        int sum = 0;
+        while (num > 0) {
+            sum += num % 10;
+            num /= 10;
+        }
+        return sum;
+    }
+}
