@@ -1,0 +1,38 @@
+class Solution {
+    public String reformat(String s) {
+        StringBuilder letters = new StringBuilder();
+        StringBuilder digits = new StringBuilder();
+
+        for (char c : s.toCharArray()) {
+            if (Character.isLetter(c)) {
+                letters.append(c);
+            } else if (Character.isDigit(c)) {
+                digits.append(c);
+            }
+        }
+
+        int lettersCount = letters.length();
+        int digitsCount = digits.length();
+
+        if (Math.abs(lettersCount - digitsCount) > 1) {
+            return "";
+        }
+
+        StringBuilder result = new StringBuilder();
+
+        boolean letterFirst = lettersCount >= digitsCount;
+        int i = 0, j = 0;
+
+        while (i < lettersCount || j < digitsCount) {
+            if (letterFirst && i < lettersCount) {
+                result.append(letters.charAt(i++));
+            }
+            if (!letterFirst && j < digitsCount) {
+                result.append(digits.charAt(j++));
+            }
+            letterFirst = !letterFirst;
+        }
+
+        return result.toString();
+    }
+}
