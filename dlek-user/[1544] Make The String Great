@@ -1,0 +1,16 @@
+class Solution {
+    public String makeGood(String s) {
+        char[] chars = s.toCharArray();
+        int top = -1;
+
+        for (char c : chars) {
+            if (top >= 0 && Math.abs(chars[top] - c) == 32) {
+                top--;
+            } else {
+                chars[++top] = c;
+            }
+        }
+
+        return new String(chars, 0, top + 1);
+    }
+}
