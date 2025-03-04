@@ -1,0 +1,17 @@
+class Solution {
+    public String reorderSpaces(String text) {
+        String[] words = text.trim().split("\\s+");
+        int spaces = text.length() - text.replace(" ", "").length();
+        int numWords = words.length;
+
+        if (numWords == 1) {
+            return words[0] + " ".repeat(spaces);
+        }
+
+        int equalSpaces = spaces / (numWords - 1); 
+        int extraSpaces = spaces % (numWords - 1); 
+
+        String result = String.join(" ".repeat(equalSpaces), words);
+        return result + " ".repeat(extraSpaces);
+    }
+}
