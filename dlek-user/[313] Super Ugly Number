@@ -1,0 +1,33 @@
+class Solution {
+    public int nthSuperUglyNumber(int n, int[] primes) {
+        int[] ugly = new int[n];
+        ugly[0] = 1;
+
+        int k = primes.length;
+        int[] index = new int[k];
+        long[] nextMultiple = new long[k]; 
+
+        for (int j = 0; j < k; j++) {
+            nextMultiple[j] = primes[j];
+        }
+
+        for (int i = 1; i < n; i++) {
+            long next = Long.MAX_VALUE;
+
+            for (int j = 0; j < k; j++) {
+                next = Math.min(next, nextMultiple[j]);
+            }
+
+            ugly[i] = (int) next; 
+
+            for (int j = 0; j < k; j++) {
+                if (next == nextMultiple[j]) {
+                    index[j]++;
+                    nextMultiple[j] = (long) primes[j] * ugly[index[j]]; 
+                }
+            }
+        }
+
+        return ugly[n - 1];
+    }
+}
