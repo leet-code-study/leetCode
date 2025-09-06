@@ -1,0 +1,24 @@
+class Solution {
+    public int lengthLongestPath(String input) {
+        Map<Integer, Integer> depthMap = new HashMap<>();
+        depthMap.put(0, 0); 
+        int maxLen = 0;
+
+        String[] lines = input.split("\n");
+
+        for (String line : lines) {
+            int depth = line.lastIndexOf("\t") + 1;
+
+            String name = line.substring(depth);
+
+            if (name.contains(".")) { 
+                int length = depthMap.get(depth) + name.length();
+                maxLen = Math.max(maxLen, length);
+            } else {
+                depthMap.put(depth + 1, depthMap.get(depth) + name.length() + 1);
+            }
+        }
+
+        return maxLen;
+    }
+}
