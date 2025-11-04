@@ -1,0 +1,46 @@
+class Solution {
+    public boolean circularArrayLoop(int[] nums) {
+        int n = nums.length;
+
+        for (int i = 0; i < n; i++) {
+            if (nums[i] == 0) continue;
+
+            boolean forward = nums[i] > 0;
+
+            int slow = i, fast = i;
+
+            while (true) {
+                slow = nextIndex(nums, n, slow, forward);
+                fast = nextIndex(nums, n, fast, forward);
+                if (fast != -1) {
+                    fast = nextIndex(nums, n, fast, forward);
+                }
+
+                if (slow == -1 || fast == -1 || slow == fast) break;
+            }
+
+            if (slow != -1 && slow == fast) return true;
+
+            int index = i;
+            int sign = nums[i];
+            while (nums[index] * sign > 0) {
+                int next = ((index + nums[index]) % n + n) % n;
+                nums[index] = 0;
+                index = next;
+            }
+        }
+
+        return false;
+    }
+
+    private int nextIndex(int[] nums, int n, int current, boolean forward) {
+        boolean dir = nums[current] > 0;
+        if (dir != forward) return -1;
+
+        int next = ((current + nums[current]) % n + n) % n;
+
+        if (next == current) return -1;
+
+        return next;
+    }
+}
