@@ -1,0 +1,28 @@
+class Solution {
+    public boolean canIWin(int maxChoosableInteger, int desiredTotal) {
+        int sum = (maxChoosableInteger * (maxChoosableInteger + 1)) / 2;
+        if (sum < desiredTotal) return false;
+
+        if (desiredTotal <= 0) return true;
+
+        HashMap<Integer, Boolean> memo = new HashMap<>();
+        return canWin(maxChoosableInteger, desiredTotal, 0, memo);
+    }
+
+    private boolean canWin(int max, int desired, int usedMask, HashMap<Integer, Boolean> memo) {
+        if (memo.containsKey(usedMask)) return memo.get(usedMask);
+
+        for (int i = 1; i <= max; i++) {
+            int bit = 1 << (i - 1);
+            if ((usedMask & bit) != 0) continue;
+
+            if (i >= desired || !canWin(max, desired - i, usedMask | bit, memo)) {
+                memo.put(usedMask, true);
+                return true;
+            }
+        }
+
+        memo.put(usedMask, false);
+        return false;
+    }
+}
