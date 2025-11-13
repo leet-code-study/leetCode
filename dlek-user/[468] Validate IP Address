@@ -1,0 +1,42 @@
+class Solution {
+    public String validIPAddress(String queryIP) {
+        if (queryIP.chars().filter(ch -> ch == '.').count() == 3 && isIPv4(queryIP))
+            return "IPv4";
+        else if (queryIP.chars().filter(ch -> ch == ':').count() == 7 && isIPv6(queryIP))
+            return "IPv6";
+        else
+            return "Neither";
+    }
+
+    private boolean isIPv4(String ip) {
+        String[] parts = ip.split("\\.", -1);
+        if (parts.length != 4) return false;
+
+        for (String part : parts) {
+            if (part.length() == 0 || part.length() > 3) return false;
+            if (part.charAt(0) == '0' && part.length() != 1) return false;
+
+            for (char c : part.toCharArray()) {
+                if (!Character.isDigit(c)) return false;
+            }
+
+            int num = Integer.parseInt(part);
+            if (num < 0 || num > 255) return false;
+        }
+        return true;
+    }
+
+    private boolean isIPv6(String ip) {
+        String[] parts = ip.split(":", -1);
+        if (parts.length != 8) return false;
+
+        String hexDigits = "0123456789abcdefABCDEF";
+        for (String part : parts) {
+            if (part.length() < 1 || part.length() > 4) return false;
+            for (char c : part.toCharArray()) {
+                if (hexDigits.indexOf(c) == -1) return false;
+            }
+        }
+        return true;
+    }
+}
