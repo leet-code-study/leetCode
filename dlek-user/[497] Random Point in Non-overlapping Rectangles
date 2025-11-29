@@ -1,0 +1,59 @@
+class Solution {
+
+    private int[][] rects;
+    private int[] prefix;
+    private Random rand;
+
+    public Solution(int[][] rects) {
+        this.rects = rects;
+        this.prefix = new int[rects.length];
+        this.rand = new Random();
+
+        int sum = 0;
+        for (int i = 0; i < rects.length; i++) {
+            int a = rects[i][0];
+            int b = rects[i][1];
+            int x = rects[i][2];
+            int y = rects[i][3];
+            int area = (x - a + 1) * (y - b + 1);
+            sum += area;
+            prefix[i] = sum;
+        }
+    }
+
+    public int[] pick() {
+        int target = rand.nextInt(prefix[prefix.length - 1]) + 1;
+
+        int index = binarySearch(target);
+
+        int[] R = rects[index];
+        int a = R[0], b = R[1], x = R[2], y = R[3];
+
+        int randX = a + rand.nextInt(x - a + 1);
+        int randY = b + rand.nextInt(y - b + 1);
+
+        return new int[]{randX, randY};
+    }
+
+    private int binarySearch(int target) {
+        int left = 0, right = prefix.length - 1;
+
+        while (left < right) {
+            int mid = left + (right - left) / 2;
+
+            if (prefix[mid] < target)
+                left = mid + 1;
+            else
+                right = mid;
+        }
+
+        return left;
+        
+    }
+}
+
+/**
+ * Your Solution object will be instantiated and called as such:
+ * Solution obj = new Solution(rects);
+ * int[] param_1 = obj.pick();
+ */
