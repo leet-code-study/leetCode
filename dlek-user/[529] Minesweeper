@@ -1,0 +1,63 @@
+class Solution {
+    private int m;
+    private int n;
+
+    private final int[] dr = {-1, -1, -1, 0, 0, 1, 1, 1};
+    private final int[] dc = {-1, 0, 1, -1, 1, -1, 0, 1};
+
+    public char[][] updateBoard(char[][] board, int[] click) {
+        m = board.length;
+        n = board[0].length;
+
+        int r = click[0];
+        int c = click[1];
+
+        if (board[r][c] == 'M') {
+            board[r][c] = 'X';
+            return board;
+        }
+
+        dfs(board, r, c);
+        return board;
+    }
+
+    private void dfs(char[][] board, int r, int c) {
+        if (r < 0 || r >= m || c < 0 || c >= n) {
+            return;
+        }
+
+        if (board[r][c] != 'E') {
+            return;
+        }
+
+        int mineCount = countAdjacentMines(board, r, c);
+
+        if (mineCount > 0) {
+            board[r][c] = (char) ('0' + mineCount);
+            return;
+        }
+
+        board[r][c] = 'B';
+
+        for (int i = 0; i < 8; i++) {
+            dfs(board, r + dr[i], c + dc[i]);
+        }
+    }
+
+    private int countAdjacentMines(char[][] board, int r, int c) {
+        int count = 0;
+
+        for (int i = 0; i < 8; i++) {
+            int nr = r + dr[i];
+            int nc = c + dc[i];
+
+            if (nr >= 0 && nr < m && nc >= 0 && nc < n) {
+                if (board[nr][nc] == 'M') {
+                    count++;
+                }
+            }
+        }
+
+        return count;
+    }
+}
