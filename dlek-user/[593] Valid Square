@@ -1,0 +1,36 @@
+class Solution {
+    public boolean validSquare(int[] p1, int[] p2, int[] p3, int[] p4) {
+        List<Integer> distances = new ArrayList<>();
+
+        distances.add(dist(p1, p2));
+        distances.add(dist(p1, p3));
+        distances.add(dist(p1, p4));
+        distances.add(dist(p2, p3));
+        distances.add(dist(p2, p4));
+        distances.add(dist(p3, p4));
+
+        Collections.sort(distances);
+
+        if (distances.get(0) == 0) {
+            return false;
+        }
+
+        for (int i = 1; i < 4; i++) {
+            if (!distances.get(i).equals(distances.get(0))) {
+                return false;
+            }
+        }
+
+        if (!distances.get(4).equals(distances.get(5))) {
+            return false;
+        }
+
+        return distances.get(4) == distances.get(0) * 2;
+    }
+
+    private int dist(int[] a, int[] b) {
+        int dx = a[0] - b[0];
+        int dy = a[1] - b[1];
+        return dx * dx + dy * dy;
+    }
+}
