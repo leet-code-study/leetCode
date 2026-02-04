@@ -1,0 +1,35 @@
+class Solution {
+    public List<List<String>> findDuplicate(String[] paths) {
+        Map<String, List<String>> contentMap = new HashMap<>();
+
+        for (String path : paths) {
+            String[] parts = path.split(" ");
+            String dir = parts[0];
+
+            for (int i = 1; i < parts.length; i++) {
+                String fileInfo = parts[i];
+
+                int openIdx = fileInfo.indexOf('(');
+                int closeIdx = fileInfo.indexOf(')');
+
+                String fileName = fileInfo.substring(0, openIdx);
+                String content = fileInfo.substring(openIdx + 1, closeIdx);
+
+                String fullPath = dir + "/" + fileName;
+
+                contentMap
+                        .computeIfAbsent(content, k -> new ArrayList<>())
+                        .add(fullPath);
+            }
+        }
+
+        List<List<String>> result = new ArrayList<>();
+        for (List<String> group : contentMap.values()) {
+            if (group.size() > 1) {
+                result.add(group);
+            }
+        }
+
+        return result;
+    }
+}
