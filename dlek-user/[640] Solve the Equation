@@ -1,0 +1,84 @@
+class Solution {
+    public String solveEquation(String equation) {
+        String[] parts = equation.split("=");
+
+        String left = parts[0];
+        String right = parts[1];
+
+        int[] leftResult = parse(left);
+        int[] rightResult = parse(right);
+
+        int leftCoeff = leftResult[0];
+        int leftConst = leftResult[1];
+
+        int rightCoeff = rightResult[0];
+        int rightConst = rightResult[1];
+
+        int finalCoeff = leftCoeff - rightCoeff;
+        int finalConst = rightConst - leftConst;
+
+        if (finalCoeff == 0) {
+
+            if (finalConst == 0) {
+                return "Infinite solutions";
+            } else {
+                return "No solution";
+            }
+        }
+
+        int xValue = finalConst / finalCoeff;
+
+        return "x=" + xValue;
+    }
+
+    private int[] parse(String expr) {
+
+        int coeff = 0;  
+        int constant = 0; 
+
+        int sign = 1;  
+        int num = 0; 
+        boolean hasNum = false;
+
+        for (int i = 0; i < expr.length(); i++) {
+
+            char c = expr.charAt(i);
+
+            if (Character.isDigit(c)) {
+                num = num * 10 + (c - '0');
+                hasNum = true;
+            }
+            else if (c == 'x') {
+
+                if (!hasNum) {
+                    coeff += sign;
+                } else {
+                    coeff += sign * num;
+                }
+
+                num = 0;
+                hasNum = false;
+            }
+            else if (c == '+') {
+
+                constant += sign * num;
+
+                sign = 1;
+                num = 0;
+                hasNum = false;
+            }
+            else if (c == '-') {
+
+                constant += sign * num;
+
+                sign = -1;
+                num = 0;
+                hasNum = false;
+            }
+        }
+
+        constant += sign * num;
+
+        return new int[]{coeff, constant};
+    }
+}
