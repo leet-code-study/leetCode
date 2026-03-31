@@ -1,0 +1,39 @@
+class Solution {
+    int[][] directions = {
+        {2, 1}, {2, -1}, {-2, 1}, {-2, -1},
+        {1, 2}, {1, -2}, {-1, 2}, {-1, -2}
+    };
+
+    double[][][] dp;
+
+    public double knightProbability(int n, int k, int row, int column) {
+        dp = new double[n][n][k + 1];
+        return dfs(n, k, row, column);
+    }
+
+    private double dfs(int n, int k, int r, int c) {
+        if (r < 0 || r >= n || c < 0 || c >= n) {
+            return 0;
+        }
+
+        if (k == 0) {
+            return 1;
+        }
+
+        if (dp[r][c][k] != 0) {
+            return dp[r][c][k];
+        }
+
+        double prob = 0;
+
+        for (int[] d : directions) {
+            int nr = r + d[0];
+            int nc = c + d[1];
+
+            prob += dfs(n, k - 1, nr, nc) / 8.0;
+        }
+
+        dp[r][c][k] = prob;
+        return prob;
+    }
+}
