@@ -1,0 +1,28 @@
+class Solution {
+    public int numRabbits(int[] answers) {
+        Map<Integer, Integer> countMap = new HashMap<>();
+
+        for (int answer : answers) {
+            countMap.put(
+                answer,
+                countMap.getOrDefault(answer, 0) + 1
+            );
+        }
+
+        int result = 0;
+
+        for (int answer : countMap.keySet()) {
+
+            int count = countMap.get(answer);
+
+            int groupSize = answer + 1;
+
+            int groups =
+                (count + groupSize - 1) / groupSize;
+
+            result += groups * groupSize;
+        }
+
+        return result;
+    }
+}
