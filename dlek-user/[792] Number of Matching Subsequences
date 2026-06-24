@@ -1,0 +1,68 @@
+class Solution {
+    public int numMatchingSubseq(String s, String[] words) {
+        Map<Character, List<Integer>> positions = new HashMap<>();
+
+        for (int i = 0; i < s.length(); i++) {
+            char ch = s.charAt(i);
+
+            positions
+                .computeIfAbsent(ch, k -> new ArrayList<>())
+                .add(i);
+        }
+
+        int answer = 0;
+
+        for (String word : words) {
+
+            int prevIndex = -1;
+            boolean matched = true;
+
+            for (char ch : word.toCharArray()) {
+
+                if (!positions.containsKey(ch)) {
+                    matched = false;
+                    break;
+                }
+
+                List<Integer> list = positions.get(ch);
+
+                int nextPos = upperBound(list, prevIndex);
+
+                if (nextPos == -1) {
+                    matched = false;
+                    break;
+                }
+
+                prevIndex = nextPos;
+            }
+
+            if (matched) {
+                answer++;
+            }
+        }
+
+        return answer;
+    }
+
+    private int upperBound(List<Integer> list, int target) {
+
+        int left = 0;
+        int right = list.size() - 1;
+
+        int answer = -1;
+
+        while (left <= right) {
+
+            int mid = left + (right - left) / 2;
+
+            if (list.get(mid) > target) {
+                answer = list.get(mid);
+                right = mid - 1;
+            } else {
+                left = mid + 1;
+            }
+        }
+
+        return answer;
+    }
+}
