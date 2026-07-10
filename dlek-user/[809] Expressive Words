@@ -1,0 +1,53 @@
+class Solution {
+    public int expressiveWords(String s, String[] words) {
+        int answer = 0;
+
+        for (String word : words) {
+
+            if (isStretchy(s, word)) {
+                answer++;
+            }
+        }
+
+        return answer;
+    }
+
+    private boolean isStretchy(String s, String word) {
+
+        int i = 0;
+        int j = 0;
+
+        while (i < s.length() && j < word.length()) {
+
+            if (s.charAt(i) != word.charAt(j)) {
+                return false;
+            }
+
+            char ch = s.charAt(i);
+
+            int countS = 0;
+            while (i < s.length() && s.charAt(i) == ch) {
+                countS++;
+                i++;
+            }
+
+            int countW = 0;
+            while (j < word.length() && word.charAt(j) == ch) {
+                countW++;
+                j++;
+            }
+
+            if (countS == countW) {
+                continue;
+            }
+
+            if (countS >= 3 && countS > countW) {
+                continue;
+            }
+
+            return false;
+        }
+
+        return i == s.length() && j == word.length();
+    }
+}
