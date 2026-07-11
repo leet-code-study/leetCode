@@ -1,0 +1,35 @@
+class Solution {
+    public List<String> subdomainVisits(String[] cpdomains) {
+        Map<String, Integer> map = new HashMap<>();
+
+        for (String cp : cpdomains) {
+
+            String[] parts = cp.split(" ");
+
+            int count = Integer.parseInt(parts[0]);
+
+            String domain = parts[1];
+
+            map.put(domain, map.getOrDefault(domain, 0) + count);
+
+            for (int i = 0; i < domain.length(); i++) {
+
+                if (domain.charAt(i) == '.') {
+
+                    String sub = domain.substring(i + 1);
+
+                    map.put(sub, map.getOrDefault(sub, 0) + count);
+                }
+            }
+        }
+
+        List<String> answer = new ArrayList<>();
+
+        for (String domain : map.keySet()) {
+
+            answer.add(map.get(domain) + " " + domain);
+        }
+
+        return answer;
+    }
+}
