@@ -1,0 +1,47 @@
+class Solution {
+    public int largestOverlap(int[][] img1, int[][] img2) {
+        int n = img1.length;
+
+        int answer = 0;
+
+        for (int dx = -(n - 1); dx <= n - 1; dx++) {
+
+            for (int dy = -(n - 1); dy <= n - 1; dy++) {
+
+                answer = Math.max(answer,
+                        countOverlap(img1, img2, dx, dy));
+            }
+        }
+
+        return answer;
+    }
+
+    private int countOverlap(int[][] img1,
+                             int[][] img2,
+                             int dx,
+                             int dy) {
+
+        int n = img1.length;
+
+        int count = 0;
+
+        for (int r = 0; r < n; r++) {
+
+            for (int c = 0; c < n; c++) {
+
+                int newR = r + dx;
+                int newC = c + dy;
+
+                if (newR >= 0 && newR < n &&
+                    newC >= 0 && newC < n &&
+                    img1[r][c] == 1 &&
+                    img2[newR][newC] == 1) {
+
+                    count++;
+                }
+            }
+        }
+
+        return count;
+    }
+}
