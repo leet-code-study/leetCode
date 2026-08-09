@@ -1,0 +1,41 @@
+class Solution {
+    public String pushDominoes(String dominoes) {
+        StringBuilder sb = new StringBuilder();
+
+        sb.append('L');
+        sb.append(dominoes);
+        sb.append('R');
+
+        int left = 0;
+
+        for (int right = 1; right < sb.length(); right++) {
+
+            if (sb.charAt(right) == '.') {
+                continue;
+            }
+
+            char leftForce = sb.charAt(left);
+            char rightForce = sb.charAt(right);
+
+            int dots = right - left - 1;
+
+            if (leftForce == rightForce) {
+
+                for (int i = 0; i < dots; i++) {
+                    sb.setCharAt(left + 1 + i, leftForce);
+                }
+
+            } else if (leftForce == 'R' && rightForce == 'L') {
+
+                for (int i = 0; i < dots / 2; i++) {
+                    sb.setCharAt(left + 1 + i, 'R');
+                    sb.setCharAt(right - 1 - i, 'L');
+                }
+            }
+
+            left = right;
+        }
+
+        return sb.substring(1, sb.length() - 1);
+    }
+}
