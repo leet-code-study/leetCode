@@ -1,0 +1,58 @@
+class Solution {
+    public List<Integer> splitIntoFibonacci(String num) {
+        List<Integer> result = new ArrayList<>();
+
+        backtracking(num, 0, result);
+
+        return result;
+    }
+
+    private boolean backtracking(
+            String num,
+            int index,
+            List<Integer> sequence
+    ) {
+        if (index == num.length()) {
+            return sequence.size() >= 3;
+        }
+
+        long current = 0;
+
+        for (int i = index; i < num.length(); i++) {
+
+            if (i > index && num.charAt(index) == '0') {
+                break;
+            }
+
+            current = current * 10 + (num.charAt(i) - '0');
+
+            if (current > Integer.MAX_VALUE) {
+                break;
+            }
+
+            if (sequence.size() >= 2) {
+                long sum =
+                        (long) sequence.get(sequence.size() - 2)
+                        + sequence.get(sequence.size() - 1);
+
+                if (current < sum) {
+                    continue;
+                }
+
+                if (current > sum) {
+                    break;
+                }
+            }
+
+            sequence.add((int) current);
+
+            if (backtracking(num, i + 1, sequence)) {
+                return true;
+            }
+
+            sequence.remove(sequence.size() - 1);
+        }
+
+        return false;
+    }
+}
