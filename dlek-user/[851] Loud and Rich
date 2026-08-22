@@ -1,0 +1,56 @@
+class Solution {
+    public int[] loudAndRich(int[][] richer, int[] quiet) {
+        int n = quiet.length;
+
+        List<Integer>[] graph = new ArrayList[n];
+
+        for (int i = 0; i < n; i++) {
+            graph[i] = new ArrayList<>();
+        }
+        
+        for (int[] relation : richer) {
+            int richerPerson = relation[0];
+            int poorerPerson = relation[1];
+
+            graph[poorerPerson].add(richerPerson);
+        }
+
+        int[] answer = new int[n];
+
+        Arrays.fill(answer, -1);
+
+        for (int person = 0; person < n; person++) {
+            dfs(person, graph, quiet, answer);
+        }
+
+        return answer;
+    }
+
+    private int dfs(
+        int person,
+        List<Integer>[] graph,
+        int[] quiet,
+        int[] answer
+    ) {
+        if (answer[person] != -1) {
+            return answer[person];
+        }
+
+        answer[person] = person;
+
+        for (int richerPerson : graph[person]) {
+            int candidate = dfs(
+                richerPerson,
+                graph,
+                quiet,
+                answer
+            );
+
+            if (quiet[candidate] < quiet[answer[person]]) {
+                answer[person] = candidate;
+            }
+        }
+
+        return answer[person];
+    }
+}
