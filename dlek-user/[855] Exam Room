@@ -1,0 +1,62 @@
+class ExamRoom {
+
+    private final int n;
+    private final TreeSet<Integer> seats;
+
+    public ExamRoom(int n) {
+        this.n = n;
+        this.seats = new TreeSet<>();
+    }
+
+    public int seat() {
+        if (seats.isEmpty()) {
+            seats.add(0);
+            return 0;
+        }
+
+        int bestSeat = 0;
+        int bestDistance = seats.first();
+
+        int previous = seats.first();
+
+        for (int current : seats) {
+            if (current == previous) {
+                continue;
+            }
+
+            int candidate = previous
+                    + (current - previous) / 2;
+
+            int distance = candidate - previous;
+
+            if (distance > bestDistance) {
+                bestDistance = distance;
+                bestSeat = candidate;
+            }
+
+            previous = current;
+        }
+
+        int lastSeat = seats.last();
+        int rightDistance = n - 1 - lastSeat;
+
+        if (rightDistance > bestDistance) {
+            bestSeat = n - 1;
+        }
+
+        seats.add(bestSeat);
+
+        return bestSeat;
+    }
+
+    public void leave(int p) {
+        seats.remove(p);
+    }
+}
+
+/**
+ * Your ExamRoom object will be instantiated and called as such:
+ * ExamRoom obj = new ExamRoom(n);
+ * int param_1 = obj.seat();
+ * obj.leave(p);
+ */
