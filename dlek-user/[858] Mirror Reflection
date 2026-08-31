@@ -1,0 +1,28 @@
+class Solution {
+    public int mirrorReflection(int p, int q) {
+        int gcd = getGcd(p, q);
+
+        int pDiv = p / gcd;
+        int qDiv = q / gcd;
+
+        if (pDiv % 2 == 1 && qDiv % 2 == 1) {
+            return 1;
+        }
+
+        if (pDiv % 2 == 0 && qDiv % 2 == 1) {
+            return 2;
+        }
+
+        return 0;
+    }
+
+    private int getGcd(int a, int b) {
+        while (b != 0) {
+            int temp = a % b;
+            a = b;
+            b = temp;
+        }
+
+        return a;
+    }
+}
