@@ -1,0 +1,52 @@
+class Solution {
+
+    private Map<TreeNode, TreeNode> parentMap = new HashMap<>();
+    private List<Integer> answer = new ArrayList<>();
+
+    public List<Integer> distanceK(TreeNode root, TreeNode target, int k) {
+        makeParentMap(root, null);
+        dfs(target, null, 0, k);
+        return answer;
+    }
+
+    private void makeParentMap(TreeNode node, TreeNode parent) {
+        if (node == null) {
+            return;
+        }
+
+        parentMap.put(node, parent);
+
+        makeParentMap(node.left, node);
+        makeParentMap(node.right, node);
+    }
+
+    private void dfs(
+            TreeNode node,
+            TreeNode previous,
+            int distance,
+            int k
+    ) {
+        if (node == null) {
+            return;
+        }
+
+        if (distance == k) {
+            answer.add(node.val);
+            return;
+        }
+
+        if (node.left != previous) {
+            dfs(node.left, node, distance + 1, k);
+        }
+
+        if (node.right != previous) {
+            dfs(node.right, node, distance + 1, k);
+        }
+
+        TreeNode parent = parentMap.get(node);
+
+        if (parent != previous) {
+            dfs(parent, node, distance + 1, k);
+        }
+    }
+}
