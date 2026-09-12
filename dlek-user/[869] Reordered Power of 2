@@ -1,0 +1,34 @@
+class Solution {
+    public boolean reorderedPowerOf2(int n) {
+        int[] countN = countDigits(n);
+
+        for (int i = 0; i <= 30; i++) {
+
+            int powerOfTwo = 1 << i;
+
+            int[] countPower = countDigits(powerOfTwo);
+
+            if (Arrays.equals(countN, countPower)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    private int[] countDigits(int number) {
+
+        int[] count = new int[10];
+
+        while (number > 0) {
+
+            int digit = number % 10;
+
+            count[digit]++;
+
+            number /= 10;
+        }
+
+        return count;
+    }
+}
