@@ -1,0 +1,41 @@
+class Solution {
+    public int[] advantageCount(int[] nums1, int[] nums2) {
+        int n = nums1.length;
+
+        Arrays.sort(nums1);
+
+        int[][] sortedNums2 = new int[n][2];
+
+        for (int i = 0; i < n; i++) {
+            sortedNums2[i][0] = nums2[i];
+            sortedNums2[i][1] = i;
+        }
+
+        Arrays.sort(sortedNums2, (a, b) -> Integer.compare(a[0], b[0]));
+
+        int[] result = new int[n];
+        int left = 0;
+        int right = n - 1;
+
+        for (int i = n - 1; i >= 0; i--) {
+
+            int target = sortedNums2[i][0];
+            int originalIndex = sortedNums2[i][1];
+
+            if (nums1[right] > target) {
+
+                result[originalIndex] = nums1[right];
+
+                right--;
+
+            } else {
+
+                result[originalIndex] = nums1[left];
+
+                left++;
+            }
+        }
+
+        return result;
+    }
+}
