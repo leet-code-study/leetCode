@@ -1,0 +1,41 @@
+class Solution {
+    public int[][] spiralMatrixIII(int rows, int cols, int rStart, int cStart) {
+        int[][] result = new int[rows * cols][2];
+
+        int index = 0;
+        int row = rStart;
+        int col = cStart;
+
+        int[] dr = {0, 1, 0, -1};
+        int[] dc = {1, 0, -1, 0};
+
+        int direction = 0;
+        int step = 1;
+
+        result[index++] = new int[]{row, col};
+
+        while (index < rows * cols) {
+            for (int count = 0; count < 2; count++) {
+                for (int move = 0; move < step; move++) {
+                    row += dr[direction];
+                    col += dc[direction];
+
+                    if (row >= 0 && row < rows
+                            && col >= 0 && col < cols) {
+                        result[index++] = new int[]{row, col};
+                    }
+
+                    if (index == rows * cols) {
+                        return result;
+                    }
+                }
+
+                direction = (direction + 1) % 4;
+            }
+
+            step++;
+        }
+
+        return result;
+    }
+}
