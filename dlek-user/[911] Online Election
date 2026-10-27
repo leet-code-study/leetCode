@@ -1,0 +1,50 @@
+class TopVotedCandidate {
+    private int[] times;
+    private int[] leaders;
+
+    public TopVotedCandidate(int[] persons, int[] times) {
+        this.times = times;
+        this.leaders = new int[persons.length];
+
+        Map<Integer, Integer> votes = new HashMap<>();
+
+        int maxVotes = 0;
+        int leader = -1;
+
+        for (int i = 0; i < persons.length; i++) {
+            int person = persons[i];
+
+            votes.put(person, votes.getOrDefault(person, 0) + 1);
+
+            if (votes.get(person) >= maxVotes) {
+                maxVotes = votes.get(person);
+                leader = person;
+            }
+
+            leaders[i] = leader;
+        }
+    }
+
+    public int q(int t) {
+        int left = 0;
+        int right = times.length - 1;
+
+        while (left < right) {
+            int mid = left + (right - left + 1) / 2;
+
+            if (times[mid] <= t) {
+                left = mid;
+            } else {
+                right = mid - 1;
+            }
+        }
+
+        return leaders[left];
+    }
+}
+
+/**
+ * Your TopVotedCandidate object will be instantiated and called as such:
+ * TopVotedCandidate obj = new TopVotedCandidate(persons, times);
+ * int param_1 = obj.q(t);
+ */
