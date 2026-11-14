@@ -1,0 +1,25 @@
+class Solution {
+    public int numSubarraysWithSum(int[] nums, int goal) {
+        Map<Integer, Integer> prefixCount = new HashMap<>();
+
+        prefixCount.put(0, 1);
+
+        int sum = 0;
+        int answer = 0;
+
+        for (int num : nums) {
+            sum += num;
+
+            int target = sum - goal;
+
+            answer += prefixCount.getOrDefault(target, 0);
+
+            prefixCount.put(
+                sum,
+                prefixCount.getOrDefault(sum, 0) + 1
+            );
+        }
+
+        return answer;
+    }
+}
